@@ -1,2 +1,2 @@
-.env.dev
+util/config.ts
 node_modules/

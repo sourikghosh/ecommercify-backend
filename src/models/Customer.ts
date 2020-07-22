@@ -1,9 +1,11 @@
+import { hash } from "argon2";
 import { Schema, model, Types } from "mongoose";
+import { userInfo } from "os";
 import { ICustomer } from "./interfaces/ICustomer";
 const customerSchema = new Schema({
   name: { type: String, required: true, minlength: 4, trim: true },
-  email: { type: String },
-  contactNo: { type: String },
+  email: { type: String, unique: true },
+  contactNo: { type: String ,unique:true},
   password: { type: String, required: true, minlength: 5 },
   orders: [{ type: Types.ObjectId }], //OrderId
   verified: {
@@ -33,5 +35,15 @@ const customerSchema = new Schema({
     discarded: Types.ObjectId, //ProductId
   },
   inCart: [Types.ObjectId], //ProductId
+});
+customerSchema.pre("save", async function (next) {
+  const customer: ICustomer | any = this;
+  if (!customer.isModified("password")) return next();
+  try {
+    const hashedPwd = await hash(customer.password);
+    customer.password = hashedPwd;
+  } catch (error) {
+    return next(error);
+  }
 });
 export const Customer = model<ICustomer>("Customer", customerSchema);
