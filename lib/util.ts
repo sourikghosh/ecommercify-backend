@@ -1,4 +1,4 @@
-export class util {
+class util {
   isArr(obj: any) {
     if (Array.isArray(obj)) return true;
     else return false;
@@ -8,3 +8,5 @@ export class util {
     return str.match(mailFormat);
   }
 }
+const u = new util();
+export { u as default };
