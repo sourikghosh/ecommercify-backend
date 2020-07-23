@@ -1,10 +1,10 @@
-import { hash } from "argon2";
+import { hash, verify } from "argon2";
 import { Schema, model, Types } from "mongoose";
 import { ICustomer } from "./interfaces/ICustomer";
 const customerSchema = new Schema({
   name: { type: String, required: true, minlength: 4, trim: true },
-  email: { type: String, unique: true, required: true },
-  contactNo: { type: String, unique: true, required: true },
+  email: { type: String, unique: true, required: true, index: true },
+  contactNo: { type: String, unique: true, required: true, index: true },
   password: { type: String, required: true, minlength: 5 },
   orders: [{ type: Types.ObjectId }], //OrderId
   verified: {
@@ -45,4 +45,14 @@ customerSchema.pre("save", async function (next) {
     return next(error);
   }
 });
+customerSchema.methods.comparePassword = async function (cPassword: string) {
+  try {
+    const result = await verify(this.password,cPassword);
+    if (result) {
+      return true;
+    } else return false;
+  } catch {
+    throw Error("Error in comparing password");
+  }
+};
 export const Customer = model<ICustomer>("Customer", customerSchema);
