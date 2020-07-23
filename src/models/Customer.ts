@@ -1,11 +1,10 @@
 import { hash } from "argon2";
 import { Schema, model, Types } from "mongoose";
-import { userInfo } from "os";
 import { ICustomer } from "./interfaces/ICustomer";
 const customerSchema = new Schema({
   name: { type: String, required: true, minlength: 4, trim: true },
-  email: { type: String, unique: true },
-  contactNo: { type: String ,unique:true},
+  email: { type: String, unique: true, required: true },
+  contactNo: { type: String, unique: true, required: true },
   password: { type: String, required: true, minlength: 5 },
   orders: [{ type: Types.ObjectId }], //OrderId
   verified: {
@@ -23,7 +22,7 @@ const customerSchema = new Schema({
       pincode: String,
     },
   ],
-  isBlackListed: { type: Boolean, required: true },
+  isBlackListed: { type: Boolean },
   productViewed: [
     {
       productId: Types.ObjectId,
