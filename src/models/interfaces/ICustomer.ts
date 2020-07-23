@@ -34,4 +34,5 @@ export interface ICustomer extends Document {
   };
 
   inCart?: [ObjectID]; //productIds
+  comparePassword(cPassword:string):boolean;
 }

@@ -1,3 +1,4 @@
+import { ObjectID } from "mongodb";
 import util from "../lib/util";
 describe("email check", () => {
   it("Should be valid email", () => {
@@ -9,5 +10,14 @@ describe("email check", () => {
     const email1 = "su#man@maill";
     expect(util.isEmail(email)).toBeFalsy();
     expect(util.isEmail(email1)).toBeFalsy();
+  });
+});
+describe("ObjectID check", () => {
+  it("Should be valid", () => {
+    const objId = new ObjectID();
+    expect(util.isObjectId(String(objId))).toBeTruthy();
+  });
+  it("Shouldn't been valid", () => {
+    expect(util.isObjectId("Hellollldk")).toBeFalsy();
   });
 });
