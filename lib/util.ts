@@ -7,7 +7,7 @@ class util {
   isEmail(str: string) {
     const mailFormat = /^(([^<>()\[\]\.,;:\s@\"]+(\.[^<>()\[\]\.,;:\s@\"]+)*)|(\".+\"))@(([^<>()[\]\.,;:\s@\"]+\.)+[^<>()[\]\.,;:\s@\"]{2,})$/i;
     return str.match(mailFormat);
-  }
+  } 
   isObjectId(str: string) {
     return Types.ObjectId.isValid(str);
   }

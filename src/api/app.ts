@@ -32,11 +32,10 @@ const transaction = Sentry.startTransaction({
   op: "test",
   name: "My First Test Transaction",
 });
-Sentry.configureScope(scope => {
-    scope.setSpan(transaction);
-  });
+Sentry.configureScope((scope) => {
+  scope.setSpan(transaction);
+});
 
-  
 // RequestHandler creates a separate execution context using domains, so that every
 // transaction/span/breadcrumb is attached to its own Hub instance
 app.use(Sentry.Handlers.requestHandler());
@@ -44,7 +43,7 @@ app.use(Sentry.Handlers.requestHandler());
 app.use(Sentry.Handlers.tracingHandler());
 app.use(express.json());
 app.use("/api", routes);
-app.get("/",(req:express.Request,res:express.Response)=>{
-    res.send(`<h1>Hello Welcome here`)
-})
+app.use("*", (req, res) => {
+  res.send("<h1>Welcome to your server!</h1>");
+});
 export { app as default };
