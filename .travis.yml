@@ -1,0 +1,16 @@
+language: node_js
+node_js:
+  -12
+cache: 
+  - directories:
+    - node_modules
+  - npm
+before_install:
+  - npm i -g npm@6.13.4
+deploy: 
+  provider: heroku
+  api_key: 
+    secure: 6c2baf04-91f7-490a-b6d2-529cab61836d
+  on: 
+    branch: master
+  app: ecommercify-backend

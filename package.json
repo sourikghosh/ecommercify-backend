@@ -1,5 +1,5 @@
 {
-  "name": "rexocommerce-backend",
+  "name": "ecommercify-backend",
   "version": "1.0.0",
   "description": "Rexocommerce backend",
   "main": "index.js",
@@ -16,7 +16,7 @@
   "license": "ISC",
   "repository": {
     "type": "git",
-    "url": "git@github.com:civitops/ecommercify-backend.git"
+    "url": "git@github.com:rexterr/ecommercify-backend.git"
   },
   "dependencies": {
     "@sentry/apm": "^5.20.0",
