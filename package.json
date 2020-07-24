@@ -5,10 +5,12 @@
   "main": "index.js",
   "scripts": {
     "test": "jest",
-    "dev": "nodemon ./src/index.ts"
+    "dev": "nodemon ./src/index.ts",
+    "build":"rm -rf dist && tsc",
+    "start":"npm run build && node ./dist/src/index.js"
   },
   "keywords": [
-    "rexocommerce"
+    "ecommercify"
   ],
   "author": "",
   "license": "ISC",
@@ -17,6 +19,9 @@
     "url": "git@github.com:civitops/ecommercify-backend.git"
   },
   "dependencies": {
+    "@sentry/apm": "^5.20.0",
+    "@sentry/integrations": "^5.20.0",
+    "@sentry/node": "^5.20.0",
     "argon2": "^0.26.2",
     "express": "^4.17.1",
     "express-validator": "^6.6.0",

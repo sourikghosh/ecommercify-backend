@@ -5,8 +5,8 @@ import config from "../../../util/config";
 import util from "../../../lib/util";
 class customer {
   /**
-   * 
-   * @param obj 
+   *
+   * @param obj
    * @name SignUp-Customer
    */
   async signup(obj: ICustomer) {
@@ -29,9 +29,9 @@ class customer {
     }
   }
   /**
-   * 
-   * @param username 
-   * @param password 
+   *
+   * @param username
+   * @param password
    * @name login-customer
    */
   async login(username: any, password: string) {
@@ -61,25 +61,23 @@ class customer {
     }
   }
   /**
-   * 
-   * @param contactNo 
+   *
+   * @param contactNo
    * @name get-Customer-By-contactNo
    */
   async getByContactno(contactNo: string) {
     try {
-      
-      const customer =await Customer.findOne({ contactNo });
+      const customer = await Customer.findOne({ contactNo });
       if (customer) {
         return customer;
-
       } else throw Error("Customer Not Found");
     } catch {
       throw Error("Customer Not Found");
     }
   }
   /**
-   * 
-   * @param email 
+   *
+   * @param email
    * @name get-Customer-by-Email
    */
   async getByEmail(email: string) {
@@ -91,10 +89,30 @@ class customer {
       throw Error("Customer not Found");
     }
   }
-  async getById(id:string) {
-    
+  async getById(id: string) {
+    try {
+      const customer = await Customer.findById(id);
+      if (customer) return customer;
+    } catch {
+      throw Error("Customer not found");
+    }
   }
-  async get() {}
+  async get(perPage: number, pageNo: number) {
+    try {
+      const customerCount = await Customer.count({});
+      const customer = await Customer.find()
+        .skip((pageNo - 1) * perPage)
+        .limit(perPage);
+      const customerObj = {
+        customer,
+        customerCount,
+      };
+      if (customer) return customerObj;
+      else throw Error("Customer not found");
+    } catch (error) {
+      throw Error("Customer not found");
+    }
+  }
   async update() {}
   async remove() {}
   async blacklist() {}

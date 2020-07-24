@@ -1,8 +1,16 @@
 import { Router } from "express";
-import { body } from "express-validator";
+import { body, param } from "express-validator";
 import { Customer } from "../../models/Customer";
-import { loginController, signupController } from "../controllers/customer";
+import {
+  getUserController,
+  loginController,
+  signupController,
+  getUsersController
+} from "../controllers/customer";
 const router = Router();
+/**
+ * @name Signup-route
+ */
 router.post(
   "/signup",
   [
@@ -27,15 +35,25 @@ router.post(
   ],
   signupController
 );
-
+/**
+ * @name Login-route
+ */
 router.post(
   "/login",
   [
-    body("email", "Not valid Email").isEmail(),
-    body("contactNo", "Invalid contact no").isMobilePhone("any"),
+    body("username", "username must not be empty").notEmpty(),
     body("password", "Password shouldn't been empty").notEmpty(),
   ],
   loginController
 );
 
+/**
+ * @name GetCustomer-By-id/email/contactNo
+ */
+router.get(
+  "/:id",
+  param("id", "Shouldn't been empty").notEmpty(),
+  getUserController
+);
+router.get('/',getUsersController )
 export { router as default };
