@@ -1,0 +1,1 @@
+[![Build Status](https://travis-ci.com/RexterR/ecommercify-backend.svg?token=Urss9g2V9ZAb5C1xdXdg&branch=master)](https://travis-ci.com/RexterR/ecommercify-backend)
