@@ -16,7 +16,7 @@
   "license": "ISC",
   "repository": {
     "type": "git",
-    "url": "git@github.com:rexterr/ecommercify-backend.git"
+    "url": "git@github.com:RexterR/ecommercify-backend.git"
   },
   "dependencies": {
     "@sentry/apm": "^5.20.0",
