@@ -79,7 +79,10 @@ export const getUserController = async (req: Request, res: Response) => {
  * @name get-All-User-controller
  */
 export const getUsersController = async (req: Request, res: Response) => {
-  const { perPage, pageNo } = req.query;
+  let perPage: any = 0,
+    pageNo: any = 0;
+  perPage = req.query.perPage;
+  pageNo = req.query.pageNo;
   try {
     const result = await customer.get(Number(perPage), Number(pageNo));
     if (result)
@@ -105,7 +108,7 @@ export const updateUserController = async (req: Request, res: Response) => {
   try {
     console.log(body, req.body);
     const result = await customer.update(id, body);
-    res.status(200).json({ result });
+    res.status(200).json({ message:"Successfull Update" });
   } catch (error) {
     res.status(400).json({ message: "Error" });
   }
