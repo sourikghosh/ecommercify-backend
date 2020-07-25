@@ -2,14 +2,23 @@ import { NextFunction, Request, Response } from "express";
 import { verify } from "jsonwebtoken";
 import config from "../../../util/config";
 const extractToken = (req: Request | any) => {
-  if (req.header.Authorization.startsWith("Bearer ")) {
-    const bearer: string = req.header.Authorization;
-    const token = bearer.split(" ")[1];
-    return token;
-  } else throw Error("Token not found");
+ const bearer: string = req.headers["authorization"];
+ const token = bearer.split(" ")[1];
+   return token;
+ 
 };
-const isCustomer = (
-  req: Request | any,
-  res: Response,
-  next: NextFunction
-) => {};
+export const isCustomer = (req: Request | any, res: Response, next: NextFunction) => {
+  try {
+    const token = extractToken(req);
+    verify(token, config.JWT_SECRET, (err, decoded) => {
+      if (err) {
+        res.status(401).json({ message: "Authorization Error ,Invald Token" });
+      } else if (decoded) {
+        req.body.user = decoded;
+        next();
+      }
+    });
+  } catch (error) {
+    res.status(500).json({ Message: "Some error occured" });
+  }
+};

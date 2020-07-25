@@ -2,7 +2,6 @@ import { Request, Response } from "express";
 import customer from "../../core/customer/customer";
 import { validationResult } from "express-validator";
 import util from "../../../lib/util";
-import { strict } from "assert";
 /**
  *
  * @param req
@@ -15,14 +14,8 @@ export const signupController = async (req: Request, res: Response) => {
     error = error.errors.map((value: any) => value.msg);
     res.status(400).json({ message: "Validation Error", errors: error });
   } else {
-    const customerObj: any = {
-      name: req.body.name,
-      email: req.body.email,
-      contactNo: req.body.contactNo,
-      password: req.body.password,
-    };
     try {
-      const token = await customer.signup(customerObj);
+      const token = await customer.signup(req.body);
       if (token) res.status(200).json({ message: "Success", token });
     } catch (error) {
       res.status(400).json({ message: "Error", error: "Signup failed" });
@@ -42,8 +35,7 @@ export const loginController = async (req: Request, res: Response) => {
     error = error.errors.map((value: any) => value.msg);
     res.status(400).json({ message: "Validation Error", errors: error });
   } else {
-    const username = req.body.username;
-    const password = req.body.password;
+    const { username, password } = req.body;
     try {
       const token = await customer.login(username, password);
       if (token) res.status(200).json({ message: "Success", token });
@@ -80,18 +72,53 @@ export const getUserController = async (req: Request, res: Response) => {
     res.status(400).json({ message: "Error", error: "User error occured" });
   }
 };
+/**
+ *
+ * @param req
+ * @param res
+ * @name get-All-User-controller
+ */
 export const getUsersController = async (req: Request, res: Response) => {
   const { perPage, pageNo } = req.query;
+  console.log(req.body.user);
   try {
     const result = await customer.get(Number(perPage), Number(pageNo));
     if (result)
       res.status(200).json({
         message: "Success",
-        count: result.customer,
+        count: result.customerCount,
         customers: result.customer,
       });
     else res.status(400).json({ message: "Customer Not found" });
   } catch (error) {
     res.status(501).json({ message: "Internal Server Error" });
+  }
+};
+/**
+ *
+ * @param req
+ * @param res
+ * @name update-user-controller
+ */
+export const updateUserController = async (req: Request, res: Response) => {
+  const { id } = req.params;
+  let body = req.body;
+  try {
+    console.log(body, req.body);
+    const result = await customer.update(id, body);
+    res.status(200).json({ result });
+  } catch (error) {
+    res.status(400).json({ message: "Error" });
+  }
+};
+
+export const deleteUserController = async (req: Request, res: Response) => {
+  const { id } = req.params;
+  try {
+    const result = await customer.remove(id);
+    console.log(result);
+    if (result) res.status(200).json({ message: "Success" });
+  } catch (error) {
+    res.status(404).json({ message: "Customer not found" });
   }
 };

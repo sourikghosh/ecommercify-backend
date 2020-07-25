@@ -5,8 +5,11 @@ import {
   getUserController,
   loginController,
   signupController,
-  getUsersController
+  getUsersController,
+  updateUserController,
+  deleteUserController,
 } from "../controllers/customer";
+import { isCustomer } from "../middlewares/auth";
 const router = Router();
 /**
  * @name Signup-route
@@ -55,5 +58,7 @@ router.get(
   param("id", "Shouldn't been empty").notEmpty(),
   getUserController
 );
-router.get('/',getUsersController )
+router.get("/", getUsersController);
+router.patch("/:id", updateUserController);
+router.delete("/:id", deleteUserController);
 export { router as default };

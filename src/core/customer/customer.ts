@@ -3,6 +3,7 @@ import { Customer } from "../../models/Customer";
 import { ICustomer } from "../../models/interfaces/ICustomer";
 import config from "../../../util/config";
 import util from "../../../lib/util";
+import { customerIdQueryBuilder } from "../../db/helper";
 class customer {
   /**
    *
@@ -16,7 +17,7 @@ class customer {
 
       return new Promise((resolve, reject) => {
         sign(
-          { name: res.name, email: res.email },
+          { name: res.name, id: res._id, userType: "customer" },
           config.JWT_SECRET,
           (err: any, token: any) => {
             if (err) reject(err);
@@ -46,7 +47,7 @@ class customer {
         if (await result.comparePassword(password)) {
           return new Promise((resolve, reject) => {
             sign(
-              { name: result.name, email: result.email },
+              { name: result.name, id: result._id, userType: "customer" },
               config.JWT_SECRET,
               (err: any, token: any) => {
                 if (err) reject(err);
@@ -98,24 +99,60 @@ class customer {
     }
   }
   async get(perPage: number, pageNo: number) {
+    let customerObj;
     try {
-      const customerCount = await Customer.count({});
-      const customer = await Customer.find()
-        .skip((pageNo - 1) * perPage)
-        .limit(perPage);
-      const customerObj = {
-        customer,
-        customerCount,
-      };
-      if (customer) return customerObj;
-      else throw Error("Customer not found");
+      const customerCount = await Customer.countDocuments({});
+      if (perPage * pageNo > customerCount) {
+        customerObj = {
+          customer: ["0"],
+          customerCount: ["0"],
+        };
+      } else {
+        const customer = await Customer.find()
+          .skip((pageNo - 1) * perPage)
+          .limit(perPage)
+          .select({
+            _id: 1,
+            name: 1,
+          });
+        customerObj = {
+          customer,
+          customerCount,
+        };
+        if (!customer) throw Error("Customer not found");
+      }
+      return customerObj;
     } catch (error) {
       throw Error("Customer not found");
     }
   }
-  async update() {}
-  async remove() {}
-  async blacklist() {}
+  /**
+   *
+   * @param id
+   * @param fields
+   */
+  async update(id: any, fields: any) {
+    let query = customerIdQueryBuilder(id);
+    try {
+      const customer = await Customer.updateOne(query, fields);
+      return customer;
+    } catch (error) {
+      throw Error("Customer not found");
+    }
+  }
+  async remove(id: any) {
+    const query = customerIdQueryBuilder(id);
+    try {
+      const res = await Customer.deleteOne(query);
+      if (res.deletedCount) {
+        return res.deletedCount;
+      } else {
+        throw Error("Customer not found");
+      }
+    } catch (error) {
+      throw Error("Customer deletion error");
+    }
+  }
 }
 const cust = new customer();
 export { cust as default };
