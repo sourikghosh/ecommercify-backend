@@ -44,12 +44,12 @@
 	- ***Param:***
 		1. username`String`(R) : *Email/Contact No of Customer*
 	- ***Body***
-		1. name(<span style={color:red}>`String`</span>) : *Name of Customer*
+		1. name(`String`) : *Name of Customer*
 		2. email(`String`): *Email Of Customer*
 		3. contactNo(`String`): *Contact No Of Customer*
 		4. isBlackListed(`Boolean`):To Blacklist Customer
 	- ***Return :*** 	*Success Message*
-6. **Get Customer  By username:** 
+6. **Delete Customer  By username:** 
 	-  ***Type :***  `DELETE`
 	- ***Route :***  *URL/customer/:username*
 	- ***Required Auth:*** `ADMIN`
