@@ -80,7 +80,6 @@ export const getUserController = async (req: Request, res: Response) => {
  */
 export const getUsersController = async (req: Request, res: Response) => {
   const { perPage, pageNo } = req.query;
-  console.log(req.body.user);
   try {
     const result = await customer.get(Number(perPage), Number(pageNo));
     if (result)
