@@ -58,7 +58,7 @@ router.get(
   param("id", "Shouldn't been empty").notEmpty(),
   getUserController
 );
-router.get("/",isAdmin, getUsersController);
+router.get("/", getUsersController);
 router.patch("/:id", updateUserController);
 router.delete("/:id", deleteUserController);
 export { router as default };
