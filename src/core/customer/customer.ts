@@ -131,7 +131,7 @@ class customer {
    * @param id
    * @param fields
    */
-  async update(id: any, fields: any) {
+  async updateById(id: any, fields: any) {
     let query = customerIdQueryBuilder(id);
     try {
       const customer = await Customer.updateOne(query, fields);
