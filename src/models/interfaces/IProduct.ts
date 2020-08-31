@@ -22,11 +22,15 @@ export interface IProduct extends Document {
     }
   ];
   quantity: number;
-  category: [string];
-  saleCount?: number;
-  view?: number;
-  cartAddCount?: number;
-  cartDiscardCount?: number;
+  category: string; //Category Id
+  variant: [
+    {
+      attribute: string;
+      value: string;
+      price: { amount: number; currency: string };
+      quantity: number;
+    }
+  ];
   review?: [
     {
       rating: number;

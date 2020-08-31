@@ -1,4 +1,3 @@
-import {} from "../../models/Customer";
 import { Product } from "../../models/Product";
 
 class product {
@@ -58,7 +57,10 @@ class product {
    */
   async updateById(productId: string, obj: any) {
     try {
-      const product = Product.findByIdAndUpdate(productId, obj);
+      const product = Product.findOneAndUpdate({ _id: productId }, obj).select({
+        name: 1,
+        title: 1,
+      });
       if (!product) throw Error("Product not found");
       return product;
     } catch (error) {
@@ -72,14 +74,16 @@ class product {
    */
   async deleteById(productId: string) {
     try {
-      const ops = Product.deleteOne({ _id: productId });
-      if (!ops) throw Error("Product not found");
-      return true;
+      const product = Product.findOneAndDelete({ _id: productId }).select({
+        name: 1,
+        title: 1,
+      });
+      if (!product) throw Error("Product not found");
+      return product;
     } catch (error) {
-      throw Error(error);
+      throw Error("Product Not Found");
     }
   }
 }
-// const prod = new product();
-// export { prod as default };
+
 export default new product();

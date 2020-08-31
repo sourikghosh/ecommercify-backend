@@ -9,6 +9,8 @@ enum orderStatus{
     "DELIVERED"
 }
 export interface IOrder extends Document {
+  name:string;
+  phoneNo:string;
   customer: ObjectID;
   products: [ObjectID]; //ProductIds
   amount: number;
