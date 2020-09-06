@@ -15,30 +15,25 @@ const attributeVal = new Schema(
   },
   { _id: false }
 );
-const priceSchema = new Schema(
-  {
-    amount: Number,
-    currency: { type: String, enum: ["INR", "EUR", "USD", "YUN"] },
-  },
-  { _id: false }
-);
+
 const productSchema = new Schema({
   name: { type: String, required: true, index: true },
   title: { type: String, required: true },
   description: { type: String, required: true },
-  features: [attributeVal],
-  images: [String],
+  features: [String],
+  images: [{ ref: String, url: String }],
   specifications: [attributeVal],
-  quantity:Number,
+  quantity: Number,
   category: { type: Types.ObjectId },
   variant: [
-    { attribute: String, value: String, price: priceSchema, quantity: Number },
+    {
+      attribute: String,
+      values: [{ name: Number, price: Number, quantity: Number }],
+    },
   ],
-  price: priceSchema,
+  price: { type: Number },
   reviews: [review],
-  tag: {
-    type: String,
-    enum: ["NEW", "HOT", "TRENDING"],
-  },
+  SKU: String,
+  tags: [String],
 });
 export const Product = model<IProduct>("Product", productSchema);

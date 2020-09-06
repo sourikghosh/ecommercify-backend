@@ -1,6 +1,6 @@
 import { Router } from "express";
 import { body, param } from "express-validator";
-import { Customer } from "../../models/Customer";
+import { Customer } from "models/Customer";
 import {
   getUserController,
   loginController,
@@ -8,8 +8,8 @@ import {
   getUsersController,
   updateUserController,
   deleteUserController,
-} from "../controllers/customer";
-import { isAdmin, isCustomer } from "../middlewares/auth";
+} from "api/controllers/customer";
+import { isAdmin, isCustomer } from "api/middlewares/auth";
 const router = Router();
 /**
  * @name Signup-route

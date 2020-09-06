@@ -1,4 +1,4 @@
-import { Product } from "../../models/Product";
+import { Product } from "models/Product";
 
 class product {
   /**

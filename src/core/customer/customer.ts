@@ -1,9 +1,9 @@
 import { sign } from "jsonwebtoken";
-import { Customer } from "../../models/Customer";
-import { ICustomer } from "../../models/interfaces/ICustomer";
-import config from "../../../util/config";
-import util from "../../../lib/util";
-import { customerIdQueryBuilder } from "../../db/helper";
+import { Customer } from "models/Customer";
+import { ICustomer } from "models/interfaces/ICustomer";
+import config from "util/config";
+import util from "lib/util";
+import { customerIdQueryBuilder } from "db/helper";
 class customer {
   /**
    *

@@ -1,5 +1,5 @@
 import { Types } from "mongoose";
-import { Category } from "../../models/Category";
+import { Category } from "models/Category";
 class category {
   categoryQueryBuilder(categoryId: string) {
     let query;

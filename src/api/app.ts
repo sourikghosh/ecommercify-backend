@@ -2,8 +2,10 @@ import express from "express";
 import * as Sentry from "@sentry/node";
 import * as Apm from "@sentry/apm";
 import { RewriteFrames } from "@sentry/integrations";
-import "../db/mongoose";
-import routes from "./routes/index";
+import multer from "multer"
+
+import "db/mongoose";
+import routes from "api/routes/index";
 const app: express.Express = express();
 
 declare global {
@@ -40,10 +42,22 @@ Sentry.configureScope((scope) => {
 // transaction/span/breadcrumb is attached to its own Hub instance
 app.use(Sentry.Handlers.requestHandler());
 // TracingHandler creates a trace for every incoming request
+
+app.use(function(req, res, next) {
+  res.header("Access-Control-Allow-Origin", "*");
+  res.header(
+    "Access-Control-Allow-Headers",
+    "Origin, X-Requested-With, Content-Type, Accept"
+  );
+  next();
+});
 app.use(Sentry.Handlers.tracingHandler());
+app.use(multer().any())
 app.use(express.json());
 app.use("/api", routes);
 app.use("*", (req, res) => {
   res.send("<h1>Welcome to your server!</h1>");
 });
+
+
 export { app as default };
