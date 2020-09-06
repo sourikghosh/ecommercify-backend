@@ -1,6 +1,6 @@
 import { NextFunction, Request, Response } from "express";
 import { verify } from "jsonwebtoken";
-import config from "../../../util/config";
+import config from "util/config";
 const extractToken = (req: Request | any) => {
   if (
     req.headers.authorization &&

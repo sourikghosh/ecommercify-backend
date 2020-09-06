@@ -1,7 +1,7 @@
 import { Request, Response } from "express";
-import customer from "../../core/customer/customer";
+import customer from "core/customer/customer";
 import { validationResult } from "express-validator";
-import util from "../../../lib/util";
+import util from "lib/util";
 /**
  *
  * @param req
@@ -107,7 +107,7 @@ export const updateUserController = async (req: Request, res: Response) => {
   let body = req.body;
   try {
     console.log(body, req.body);
-    const result = await customer.update(id, body);
+    const result = await customer.updateById(id, body);
     res.status(200).json({ message:"Successfull Update" });
   } catch (error) {
     res.status(400).json({ message: "Error" });

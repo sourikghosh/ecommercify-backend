@@ -1,5 +1,5 @@
 import { connect, connection } from "mongoose";
-import config from "../../util/config";
+import config from "util/config";
 connection.on("reconnected", () => {
   console.log("Mongoose Connection Reestablished");
 });

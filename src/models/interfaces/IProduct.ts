@@ -1,19 +1,10 @@
 import { Document } from "mongoose";
-enum Tag {
-  HOT,
-  TRENDING,
-  NEW,
-}
+
 export interface IProduct extends Document {
   name: string;
   title: string;
   description: string;
-  features: [
-    {
-      attribute: string;
-      value: string;
-    }
-  ];
+  features: [string];
   images?: [string];
   specifications: [
     {
@@ -22,11 +13,15 @@ export interface IProduct extends Document {
     }
   ];
   quantity: number;
-  category: [string];
-  saleCount?: number;
-  view?: number;
-  cartAddCount?: number;
-  cartDiscardCount?: number;
+  category: string; //Category Id
+  variant: [
+    {
+      attribute: string;
+      values: [{ name: string; price: Number; quantity: Number }];
+    }
+  ];
+  price: number;
+  SKU:string;
   review?: [
     {
       rating: number;
@@ -34,5 +29,5 @@ export interface IProduct extends Document {
       images: [string];
     }
   ];
-  tag: Tag;
+  tag: [string];
 }
