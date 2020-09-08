@@ -16,17 +16,11 @@ import util from "lib/util";
  * @name SignUpController
  */
 export const signupController = async (req: Request, res: Response) => {
-  let error: any = validationResult(req);
-  if (!error.isEmpty()) {
-    error = error.errors.map((value: any) => value.msg);
-    res.status(400).json({ message: "Validation Error", errors: error });
-  } else {
-    try {
-      const token = await signUp(req.body);
-      if (token) res.status(200).json({ message: "Success", token });
-    } catch (error) {
-      res.status(400).json({ message: "Error", error: "Signup failed" });
-    }
+  try {
+    const token = await signUp(req.body);
+    if (token) res.status(200).json({ message: "Success", token });
+  } catch (error) {
+    res.status(400).json({ message: "Error", error: "Signup failed" });
   }
 };
 /**
@@ -36,19 +30,12 @@ export const signupController = async (req: Request, res: Response) => {
  * @name Login COntroller
  */
 export const loginController = async (req: Request, res: Response) => {
-  let error: any = validationResult(req);
-
-  if (!error.isEmpty()) {
-    error = error.errors.map((value: any) => value.msg);
-    res.status(400).json({ message: "Validation Error", errors: error });
-  } else {
-    const { username, password } = req.body;
-    try {
-      const token = await signIn(username, password);
-      if (token) res.status(200).json({ message: "Success", token });
-    } catch {
-      res.status(400).json({ message: "Error", error: "Login failed" });
-    }
+  const { username, password } = req.body;
+  try {
+    const token = await signIn(username, password);
+    if (token) res.status(200).json({ message: "Success", token });
+  } catch {
+    res.status(400).json({ message: "Error", error: "Login failed" });
   }
 };
 /**
