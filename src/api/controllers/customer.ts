@@ -1,5 +1,12 @@
 import { Request, Response } from "express";
-import customer from "core/customer/customer";
+import {
+  signIn,
+  signUp,
+  getCustomers,
+  getByEmail,
+  getByContactno,
+  getById,
+} from "core/customer";
 import { validationResult } from "express-validator";
 import util from "lib/util";
 /**
@@ -15,7 +22,7 @@ export const signupController = async (req: Request, res: Response) => {
     res.status(400).json({ message: "Validation Error", errors: error });
   } else {
     try {
-      const token = await customer.signup(req.body);
+      const token = await signUp(req.body);
       if (token) res.status(200).json({ message: "Success", token });
     } catch (error) {
       res.status(400).json({ message: "Error", error: "Signup failed" });
@@ -37,7 +44,7 @@ export const loginController = async (req: Request, res: Response) => {
   } else {
     const { username, password } = req.body;
     try {
-      const token = await customer.login(username, password);
+      const token = await signIn(username, password);
       if (token) res.status(200).json({ message: "Success", token });
     } catch {
       res.status(400).json({ message: "Error", error: "Login failed" });
@@ -60,11 +67,11 @@ export const getUserController = async (req: Request, res: Response) => {
       res.status(400).json({ message: "Validation Error", errors: error });
     } else {
       if (util.isEmail(id)) {
-        cstmr = await customer.getByEmail(id);
+        cstmr = await getByEmail(id);
       } else if (util.isObjectId(id)) {
-        cstmr = await customer.getById(id);
+        cstmr = await getById(id);
       } else {
-        cstmr = await customer.getByContactno(id);
+        cstmr = await getByContactno(id);
       }
       if (cstmr) res.status(200).json({ message: "Success", result: cstmr });
     }
@@ -84,7 +91,7 @@ export const getUsersController = async (req: Request, res: Response) => {
   perPage = req.query.perPage;
   pageNo = req.query.pageNo;
   try {
-    const result = await customer.get(Number(perPage), Number(pageNo));
+    const result = await getCustomers(Number(perPage), Number(pageNo));
     if (result)
       res.status(200).json({
         message: "Success",
@@ -102,25 +109,3 @@ export const getUsersController = async (req: Request, res: Response) => {
  * @param res
  * @name update-user-controller
  */
-export const updateUserController = async (req: Request, res: Response) => {
-  const { id } = req.params;
-  let body = req.body;
-  try {
-    console.log(body, req.body);
-    const result = await customer.updateById(id, body);
-    res.status(200).json({ message:"Successfull Update" });
-  } catch (error) {
-    res.status(400).json({ message: "Error" });
-  }
-};
-
-export const deleteUserController = async (req: Request, res: Response) => {
-  const { id } = req.params;
-  try {
-    const result = await customer.remove(id);
-    console.log(result);
-    if (result) res.status(200).json({ message: "Success" });
-  } catch (error) {
-    res.status(404).json({ message: "Customer not found" });
-  }
-};

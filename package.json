@@ -6,8 +6,8 @@
   "scripts": {
     "test": "jest",
     "dev": "NODE_PATH=./src  nodemon ./src/index.ts",
-    "build": "tsc",
-    "start": "NODE_PATH=./src node ./dist/src/index.js"
+    "build": "rm -rf dist && tsc",
+    "start": "npm run build && NODE_PATH=./src node ./dist/index.js"
   },
   "keywords": [
     "ecommercify"
