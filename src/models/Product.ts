@@ -31,6 +31,7 @@ const productSchema = new Schema({
       values: [{ name: Number, price: Number, quantity: Number }],
     },
   ],
+  actualPrice: Number,
   price: { type: Number },
   reviews: [review],
   SKU: String,

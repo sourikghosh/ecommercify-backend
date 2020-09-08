@@ -3,7 +3,6 @@ import * as Sentry from "@sentry/node";
 import * as Apm from "@sentry/apm";
 import { RewriteFrames } from "@sentry/integrations";
 import multer from "multer"
-
 import "db/mongoose";
 import routes from "api/routes/index";
 const app: express.Express = express();
