@@ -3,7 +3,8 @@ import { ICategory } from "./interfaces/ICategory";
 
 const categorySchema = new Schema({
   name: { type: String, required: true, unique: true },
-  images:[{type:String}],
+  images: [{ ref: String, url: String }],
   productIds: [{ type: Types.ObjectId }],
 });
-export const Category = model<ICategory>("Category", categorySchema);
+const Category = model<ICategory>("Category", categorySchema);
+export default Category;

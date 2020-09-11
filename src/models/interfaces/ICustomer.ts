@@ -22,17 +22,5 @@ export interface ICustomer extends Document {
     }
   ];
   isBlacklisted: boolean;
-  productViewed?: [
-    {
-      productId: ObjectID;
-      date: Date;
-    }
-  ]; //ProductId
-  cartActivity?: {
-    added: [ObjectID]; //productId
-    discarded: [ObjectID]; //productId
-  };
-
-  inCart?: [ObjectID]; //productIds
   comparePassword(cPassword:string):boolean;
 }

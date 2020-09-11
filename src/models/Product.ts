@@ -34,7 +34,7 @@ const productSchema = new Schema({
   actualPrice: Number,
   price: { type: Number },
   reviews: [review],
-  SKU: String,
   tags: [String],
 });
-export const Product = model<IProduct>("Product", productSchema);
+const Product = model<IProduct>("Product", productSchema);
+export default Product;

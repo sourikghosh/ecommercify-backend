@@ -28,18 +28,6 @@ const customerSchema = new Schema({
   },
   addresses: [addressSchema],
   isBlackListed: { type: Boolean },
-  productViewed: [
-    {
-      _id: false,
-      productId: Types.ObjectId,
-      date: Date,
-    },
-  ],
-  cartActivity: {
-    added: [Types.ObjectId], //ProductId
-    discarded: [Types.ObjectId], //ProductId
-  },
-  inCart: [Types.ObjectId], //ProductId
 });
 customerSchema.pre("save", async function (next) {
   const customer: ICustomer | any = this;
@@ -61,4 +49,5 @@ customerSchema.methods.comparePassword = async function (cPassword: string) {
     throw Error("Error in comparing password");
   }
 };
-export const Customer = model<ICustomer>("Customer", customerSchema);
+const Customer = model<ICustomer>("Customer", customerSchema);
+export default Customer;

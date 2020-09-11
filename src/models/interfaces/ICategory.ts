@@ -1,6 +1,6 @@
 import { Document } from "mongoose";
 export interface ICategory extends Document {
   name: string;
-  images: [string];
+  images?: [{ ref: string; url: string }];
   productIds: [string];
 }
