@@ -1,2 +1,3 @@
 import setCategory from "./setCategory";
-export { setCategory };
+import getCategoryNames from "./getCategoryNames"
+export { setCategory ,getCategoryNames};

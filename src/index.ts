@@ -1,6 +1,6 @@
 import * as Sentry from "@sentry/node";
 import app from "api/app";
-import { Category } from "models/Category";
+
 
 
 let PORT = String(4000);

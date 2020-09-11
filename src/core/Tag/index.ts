@@ -1,2 +1,3 @@
 import setTags from "./setTags";
-export { setTags };
+import getTagNames from "./getTagNames";
+export { setTags, getTagNames };

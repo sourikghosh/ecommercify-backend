@@ -7,6 +7,6 @@ export const addProductController = async(req: Request, res: Response) => {
     if (!result) throw Error("Product add failure");
     res.status(200).json({ success: true, product: result });
   } catch (error) {
-    res.status(400).json({ success: false, message: error.message});
+    res.status(200).json({ success: false, message: error.message});
   }
 };

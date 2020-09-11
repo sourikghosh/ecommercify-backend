@@ -1,6 +1,6 @@
 import { Router } from "express";
 import { body, param } from "express-validator";
-import { Customer } from "models/Customer";
+import Customer from "models/Customer"
 import {
   getUserController,
   loginController,

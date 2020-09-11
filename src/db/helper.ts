@@ -1,4 +1,4 @@
-import util from "lib/util";
+import util from "util/util";
 export const customerIdQueryBuilder = (id: any) => {
   let query;
   if (util.isEmail(id)) {

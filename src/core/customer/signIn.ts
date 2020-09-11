@@ -1,7 +1,7 @@
 import { sign } from "jsonwebtoken";
 import { ICustomer } from "models/interfaces/ICustomer";
 import config from "util/config";
-import util from "lib/util";
+import util from "util/util";
 import { getByContactno, getByEmail } from "./getCustomer";
 const signIn = async (username: any, password: string) => {
   try {
