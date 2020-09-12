@@ -36,7 +36,7 @@ router.post(
     body("password", "Password must not been empty or of minimum 6 character")
       .notEmpty()
       .isLength({ min: 6 }),
-  ],
+  ],validate,
   signupController
 );
 /**
@@ -47,7 +47,7 @@ router.post(
   [
     body("username", "username must not be empty").notEmpty(),
     body("password", "Password shouldn't be empty").notEmpty(),
-  ],
+  ],validate,
   loginController
 );
 
@@ -56,7 +56,7 @@ router.post(
  */
 router.get(
   "/:id",
-  [param("id", "Shouldn't been empty").notEmpty()],
+  [param("id", "Shouldn't been empty").notEmpty()],validate,
   getUserController
 );
 router.get("/", getUsersController);

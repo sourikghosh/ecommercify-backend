@@ -21,7 +21,7 @@ const addProduct = async (obj: any) => {
       reviews,
       tags,
     } = obj;
-    console.log(obj);
+  
     const product = new Product({
       name,
       title,
@@ -46,10 +46,11 @@ const addProduct = async (obj: any) => {
      * there.If exists then we will add product to that tags or we
      * will create New Tag
      */
-    tags.length !== 0 && (await setTags(tags, result._id));
+    tags && tags.length !==0 && (await setTags(tags, result._id));
     if (!result) throw Error("Product addition Failure");
     return result._id;
   } catch (error) {
+    console.log(error.message)
     throw Error("Product could not be added!");
   }
 };

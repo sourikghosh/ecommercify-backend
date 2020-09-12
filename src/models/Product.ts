@@ -1,5 +1,6 @@
 import { Schema, model, Types } from "mongoose";
 import { IProduct } from "./interfaces/IProduct";
+import { ImageSchema } from "./Schemas";
 const review = new Schema(
   {
     rating: { type: Number, required: true },
@@ -21,10 +22,9 @@ const productSchema = new Schema({
   title: { type: String, required: true },
   description: { type: String, required: true },
   features: [String],
-  images: [{ ref: String, url: String }],
+  images: ImageSchema,
   specifications: [attributeVal],
   quantity: Number,
-  category: { type: Types.ObjectId },
   variant: [
     {
       attribute: String,
@@ -34,7 +34,6 @@ const productSchema = new Schema({
   actualPrice: Number,
   price: { type: Number },
   reviews: [review],
-  tags: [String],
 });
 const Product = model<IProduct>("Product", productSchema);
 export default Product;

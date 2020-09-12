@@ -5,7 +5,7 @@ const setTag = async (tags: [any], productId: string) => {
       const tagFound = await Tag.findOne({ name: tag });
       tagFound
         ? await Tag.updateOne({ name: tag }, { $push: { products: productId } })
-        : Tag.create({ name: tag, products: [productId] });
+        : await Tag.create({ name: tag, products: [productId] });
     });
     await Promise.all(handleTag);
     return true;

@@ -10,6 +10,6 @@ export const getInitialProductDetailsController = async (
     const tags = await getTagNames();
     res.status(200).json({ success: true, categories, tags });
   } catch (error) {
-    res.status(400).json({ success: true, error: error.message });
+    res.status(200).json({ success: false, error: error.message });
   }
 };

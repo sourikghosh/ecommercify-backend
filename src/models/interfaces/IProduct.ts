@@ -13,7 +13,6 @@ export interface IProduct extends Document {
     }
   ];
   quantity: number;
-  category?: string; //Category Id
   variant?: [
     {
       attribute: string;
@@ -29,5 +28,4 @@ export interface IProduct extends Document {
       images?: [string];
     }
   ];
-  tags: [string];
 }
