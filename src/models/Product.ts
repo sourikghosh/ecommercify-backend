@@ -22,9 +22,9 @@ const productSchema = new Schema({
   title: { type: String, required: true },
   description: { type: String, required: true },
   features: [String],
-  images: ImageSchema,
+  images: [ImageSchema],
   specifications: [attributeVal],
-  quantity: Number,
+
   variant: [
     {
       attribute: String,
@@ -33,6 +33,7 @@ const productSchema = new Schema({
   ],
   actualPrice: Number,
   price: { type: Number },
+  quantity: Number,
   reviews: [review],
 });
 const Product = model<IProduct>("Product", productSchema);
