@@ -1,5 +1,5 @@
 import { ObjectID } from "mongodb";
-import util from "../lib/util";
+import util from "../src/util/util";
 describe("email check", () => {
   it("Should be valid email", () => {
     const email = "sumandas.workplace@gmail.com";
