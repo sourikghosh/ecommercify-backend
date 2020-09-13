@@ -4,30 +4,28 @@ export interface IProduct extends Document {
   name: string;
   title: string;
   description: string;
-  features: [string];
+  features?: [string];
   images?: [string];
-  specifications: [
+  specifications?: [
     {
       attribute: string;
       value: string;
     }
   ];
   quantity: number;
-  category: string; //Category Id
-  variant: [
+  variant?: [
     {
       attribute: string;
       values: [{ name: string; price: Number; quantity: Number }];
     }
   ];
+  actualPrice: number;
   price: number;
-  SKU:string;
-  review?: [
+  reviews?: [
     {
       rating: number;
-      comment: string;
-      images: [string];
+      comment?: string;
+      images?: [string];
     }
   ];
-  tag: [string];
 }

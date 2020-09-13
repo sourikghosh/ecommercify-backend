@@ -1,19 +1,7 @@
 import { hash, verify } from "argon2";
 import { Schema, model, Types } from "mongoose";
 import { ICustomer } from "./interfaces/ICustomer";
-
-const addressSchema = new Schema(
-  {
-    name: { type: String, required: true },
-    contactNo: { type: String, required: true },
-    addressLine1: { type: String, required: true },
-    addressLine2: String,
-    landmark: { type: String, required: true },
-    city: { type: String, required: true },
-    pincode: String,
-  },
-  { _id: false }
-);
+import { AddressSchema } from "./Schemas";
 
 const customerSchema = new Schema({
   name: { type: String, required: true, minlength: 4, trim: true, index: true },
@@ -26,20 +14,8 @@ const customerSchema = new Schema({
     status: Boolean,
     via: { type: String, enum: ["email", "contactno"] },
   },
-  addresses: [addressSchema],
+  addresses: [AddressSchema],
   isBlackListed: { type: Boolean },
-  productViewed: [
-    {
-      _id: false,
-      productId: Types.ObjectId,
-      date: Date,
-    },
-  ],
-  cartActivity: {
-    added: [Types.ObjectId], //ProductId
-    discarded: [Types.ObjectId], //ProductId
-  },
-  inCart: [Types.ObjectId], //ProductId
 });
 customerSchema.pre("save", async function (next) {
   const customer: ICustomer | any = this;
@@ -61,4 +37,5 @@ customerSchema.methods.comparePassword = async function (cPassword: string) {
     throw Error("Error in comparing password");
   }
 };
-export const Customer = model<ICustomer>("Customer", customerSchema);
+const Customer = model<ICustomer>("Customer", customerSchema);
+export default Customer;

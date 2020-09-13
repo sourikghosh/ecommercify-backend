@@ -1,4 +1,4 @@
-import { Customer } from "models/Customer";
+import  Customer  from "models/Customer";
 const get = async (perPage: number, pageNo: number) => {
   let customerObj;
   try {

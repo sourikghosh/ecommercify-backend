@@ -1,4 +1,4 @@
-import { Customer } from "models/Customer";
+import Customer from "models/Customer";
 export const getByContactno = async (contactNo: string) => {
   try {
     const customer = await Customer.findOne({ contactNo });

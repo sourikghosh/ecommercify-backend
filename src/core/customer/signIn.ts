@@ -1,7 +1,7 @@
 import { sign } from "jsonwebtoken";
 import { ICustomer } from "models/interfaces/ICustomer";
 import config from "util/config";
-import util from "lib/util";
+import util from "util/util";
 import { getByContactno, getByEmail } from "./getCustomer";
 const signIn = async (username: any, password: string) => {
   try {
@@ -10,7 +10,6 @@ const signIn = async (username: any, password: string) => {
     else if (username) {
       result = await getByContactno(username);
     } else throw Error("Nothing Given");
-
     if (result) {
       if (await result.comparePassword(password)) {
         return new Promise((resolve, reject) => {
@@ -29,4 +28,4 @@ const signIn = async (username: any, password: string) => {
     throw Error("Customer error");
   }
 };
-export default signIn
+export default signIn;

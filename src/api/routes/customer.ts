@@ -1,6 +1,6 @@
 import { Router } from "express";
 import { body, param } from "express-validator";
-import { Customer } from "models/Customer";
+import Customer from "models/Customer"
 import {
   getUserController,
   loginController,
@@ -15,7 +15,7 @@ const router = Router();
  */
 router.post(
   "/signup",
-  validate([
+  [
     body("name", "Name is not valid or not provided")
       .isString()
       .isLength({ min: 4 })
@@ -36,7 +36,7 @@ router.post(
     body("password", "Password must not been empty or of minimum 6 character")
       .notEmpty()
       .isLength({ min: 6 }),
-  ]),
+  ],validate,
   signupController
 );
 /**
@@ -44,10 +44,10 @@ router.post(
  */
 router.post(
   "/login",
-  validate([
+  [
     body("username", "username must not be empty").notEmpty(),
     body("password", "Password shouldn't be empty").notEmpty(),
-  ]),
+  ],validate,
   loginController
 );
 
@@ -56,7 +56,7 @@ router.post(
  */
 router.get(
   "/:id",
-  validate([param("id", "Shouldn't been empty").notEmpty()]),
+  [param("id", "Shouldn't been empty").notEmpty()],validate,
   getUserController
 );
 router.get("/", getUsersController);

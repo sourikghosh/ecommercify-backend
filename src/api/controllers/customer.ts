@@ -8,7 +8,7 @@ import {
   getById,
 } from "core/customer";
 import { validationResult } from "express-validator";
-import util from "lib/util";
+import util from "util/util";
 /**
  *
  * @param req
